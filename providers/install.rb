@@ -212,7 +212,7 @@ def configure
       #Setup init.d file
       bin_path = "/usr/local/bin"
       bin_path = ::File.join(node['redisio']['install_dir'], 'bin') if node['redisio']['install_dir']
-      template "/etc/init.d/redis#{server_name}" do
+      template "/etc/init.d/redis_#{server_name}" do
         source 'redis.init.erb'
         cookbook 'redisio'
         owner 'root'
@@ -235,7 +235,7 @@ def configure
           })
         only_if { current['job_control'] == 'initd' }
       end
-      template "/etc/init/redis#{server_name}.conf" do
+      template "/etc/init/redis_#{server_name}.conf" do
         source 'redis.upstart.conf.erb'
         cookbook 'redisio'
         owner current['user']
